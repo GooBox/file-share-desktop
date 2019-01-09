@@ -1,0 +1,16 @@
+{
+  "name": "goobox-file-share",
+  "version": "0.1.0",
+  "description": "Goobox File Share App",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron .",
+    "start:debug": "electron . --dev-tools"
+  },
+  "author": "Junpei Kawamoto <kawamoto.junpei@gmail.com>",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "electron": "^4.0.1",
+    "electron-builder": "^20.38.4"
+  }
+}
