@@ -2,15 +2,26 @@
   "name": "goobox-file-share",
   "version": "0.1.0",
   "description": "Goobox File Share App",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "start": "electron .",
-    "start:debug": "electron . --dev-tools"
+    "start:debug": "electron . --dev-tools",
+    "build": "webpack --display-used-exports",
+    "build:production": "webpack --mode production -p --display-used-exports",
+    "build:watch": "webpack -w",
+    "clean": "del lib/*"
   },
   "author": "Junpei Kawamoto <kawamoto.junpei@gmail.com>",
   "license": "GPL-3.0",
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.5",
+    "del-cli": "^1.1.0",
     "electron": "^4.0.1",
-    "electron-builder": "^20.38.4"
+    "electron-builder": "^20.38.4",
+    "webpack": "^4.28.1",
+    "webpack-cli": "^3.2.1"
   }
 }
