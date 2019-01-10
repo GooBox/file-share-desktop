@@ -19,34 +19,41 @@ import {Menu} from "electron";
 import openAboutWindow from "./about";
 import {AppName} from "./constants";
 
-export const createMenu = (mainWindow) => {
-
+export const createMenu = mainWindow => {
   // Create the Application's main menu for macOS
-  const template = [{
-    label: AppName,
-    submenu: [
-      {label: "About Goobox", click: openAboutWindow},
-      {type: "separator"},
-      {
-        label: "Quit", accelerator: "Command+Q", click: () => {
-          mainWindow.close();
-        }
-      }
-    ]
-  }, {
-    label: "Edit",
-    submenu: [
-      {label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:"},
-      {label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:"},
-      {type: "separator"},
-      {label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:"},
-      {label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:"},
-      {label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:"},
-      {label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:"}
-    ]
-  }];
+  const template = [
+    {
+      label: AppName,
+      submenu: [
+        {label: "About Goobox", click: openAboutWindow},
+        {type: "separator"},
+        {
+          label: "Quit",
+          accelerator: "Command+Q",
+          click: () => {
+            mainWindow.close();
+          },
+        },
+      ],
+    },
+    {
+      label: "Edit",
+      submenu: [
+        {label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:"},
+        {label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:"},
+        {type: "separator"},
+        {label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:"},
+        {label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:"},
+        {label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:"},
+        {
+          label: "Select All",
+          accelerator: "CmdOrCtrl+A",
+          selector: "selectAll:",
+        },
+      ],
+    },
+  ];
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
-
-}
+};
 
 export default createMenu;

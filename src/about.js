@@ -18,21 +18,22 @@
 import _openAboutWindow from "about-window";
 import icon from "./assets/goobox.svg";
 
-export const openAboutWindow = async () => new Promise((resolve) => {
-  const about = _openAboutWindow({
-    icon_path: icon,
-    bug_report_url: "https://github.com/GooBox/file-share-app/issues",
-    copyright: "© Goobox",
-    homepage: "https://goobox.io/",
-    license: "GPL-v3",
-    win_options: {
-      resizable: false,
-      fullscreenable: false,
-      minimizable: false,
-      maximizable: false
-    }
+export const openAboutWindow = async () =>
+  new Promise(resolve => {
+    const about = _openAboutWindow({
+      icon_path: icon,
+      bug_report_url: "https://github.com/GooBox/file-share-app/issues",
+      copyright: "© Goobox",
+      homepage: "https://goobox.io/",
+      license: "GPL-v3",
+      win_options: {
+        resizable: false,
+        fullscreenable: false,
+        minimizable: false,
+        maximizable: false,
+      },
+    });
+    about.on("closed", resolve);
   });
-  about.on("closed", resolve);
-});
 
 export default openAboutWindow;

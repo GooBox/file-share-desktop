@@ -20,7 +20,6 @@ import {AppName, AppURL, DefaultHeight, DefaultWidth} from "./constants";
 import {createMenu} from "./menu";
 
 app.on("ready", () => {
-
   const mainWindow = new BrowserWindow({
     width: DefaultWidth,
     height: DefaultHeight,
@@ -38,6 +37,4 @@ app.on("ready", () => {
   createMenu(mainWindow);
 
   app.on("window-all-closed", () => app.quit());
-
 });
-
