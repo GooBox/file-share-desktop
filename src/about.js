@@ -15,29 +15,24 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {app, BrowserWindow} from "electron";
-import {AppName, AppURL, DefaultHeight, DefaultWidth} from "./constants";
-import {createMenu} from "./menu";
+import _openAboutWindow from "about-window";
+import icon from "./assets/goobox.svg";
 
-app.on("ready", () => {
-
-  const mainWindow = new BrowserWindow({
-    width: DefaultWidth,
-    height: DefaultHeight,
-    useContentSize: true,
-    resizable: true,
-    fullscreenable: true,
-    title: AppName,
+export const openAboutWindow = async () => new Promise((resolve) => {
+  const about = _openAboutWindow({
+    icon_path: icon,
+    bug_report_url: "https://github.com/GooBox/file-share-app/issues",
+    copyright: "© Goobox",
+    homepage: "https://goobox.io/",
+    license: "GPL-v3",
+    win_options: {
+      resizable: false,
+      fullscreenable: false,
+      minimizable: false,
+      maximizable: false
+    }
   });
-  mainWindow.loadURL(AppURL);
-
-  if (process.env.DEV_TOOLS) {
-    mainWindow.toggleDevTools();
-  }
-
-  createMenu(mainWindow);
-
-  app.on("window-all-closed", () => app.quit());
-
+  about.on("closed", resolve);
 });
 
+export default openAboutWindow;

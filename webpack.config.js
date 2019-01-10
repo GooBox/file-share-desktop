@@ -29,13 +29,25 @@ const configs = [{
     "index": "./src/index.js",
   },
   resolve: {
-    extensions: [".js"]
+    extensions: [".js", ".svg"]
+  },
+  externals: {
+    "about-window": "commonjs about-window",
   },
   module: {
     rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
       loader: "babel-loader",
+    }, {
+      test: /\.svg$/,
+      exclude: /node_modules/,
+      use: {
+        loader: "svg-url-loader",
+        options: {
+          noquotes: true
+        }
+      }
     }],
   },
   output: {
