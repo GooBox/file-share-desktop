@@ -20,8 +20,12 @@ import {AppName, AppURL, DefaultHeight, DefaultWidth} from "./constants";
 import {createMenu} from "./menu";
 
 app.on("ready", () => {
+  let width = DefaultWidth;
+  if (process.env.DEV_TOOLS) {
+    width *= 2;
+  }
   const mainWindow = new BrowserWindow({
-    width: DefaultWidth,
+    width,
     height: DefaultHeight,
     useContentSize: true,
     resizable: true,
