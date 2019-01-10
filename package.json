@@ -1,5 +1,5 @@
 {
-  "name": "goobox-file-share",
+  "name": "GooboxFileShare",
   "version": "0.1.0",
   "description": "Goobox File Share App",
   "main": "lib/index.js",
@@ -9,7 +9,12 @@
     "build": "webpack --display-used-exports",
     "build:production": "webpack --mode production -p --display-used-exports",
     "build:watch": "webpack -w",
-    "clean": "del lib/*"
+    "pack": "electron-builder -m --dir",
+    "dist": "run-s dist:*",
+    "dist:mac": "electron-builder -m --x64 --publish=never",
+    "dist:win": "electron-builder -w --x64 --publish=never",
+    "dist:linux": "electron-builder -l --x64 --publish=never",
+    "clean": "del lib/* dist/*"
   },
   "author": "Junpei Kawamoto <kawamoto.junpei@gmail.com>",
   "license": "GPL-3.0",
@@ -21,6 +26,7 @@
     "del-cli": "^1.1.0",
     "electron": "^4.0.1",
     "electron-builder": "^20.38.4",
+    "npm-run-all": "^4.1.5",
     "webpack": "^4.28.1",
     "webpack-cli": "^3.2.1"
   }
