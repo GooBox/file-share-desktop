@@ -27,6 +27,8 @@ app.on("ready", () => {
   const mainWindow = new BrowserWindow({
     width,
     height: DefaultHeight,
+    minWidth: DefaultWidth,
+    minHeight: DefaultHeight,
     useContentSize: true,
     resizable: true,
     fullscreenable: true,
