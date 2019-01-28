@@ -16,6 +16,6 @@
  */
 
 export const AppName = "Goobox File Share";
-export const AppURL = "https://5c3542c5dda86b5aed850370--goobox.netlify.com/";
+export const AppURL = "https://goobox.io/?standalone=true";
 export const DefaultWidth = 800;
 export const DefaultHeight = 600;
