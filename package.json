@@ -1,0 +1,52 @@
+{
+  "name": "GooboxFileShare",
+  "version": "0.1.0",
+  "description": "Goobox File Share App",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "electron .",
+    "start:debug": "DEV_TOOLS=true electron .",
+    "build": "webpack --display-used-exports",
+    "build:production": "webpack --mode production -p --display-used-exports",
+    "build:watch": "webpack -w",
+    "check": "eslint src",
+    "check:fix": "eslint --fix src",
+    "pack": "electron-builder -m --dir",
+    "dist": "run-s dist:*",
+    "dist:mac": "electron-builder -m --x64 --publish=never",
+    "dist:win": "electron-builder -w --x64 --publish=never",
+    "dist:linux": "electron-builder -l --x64 --publish=never",
+    "clean": "del lib/* dist/*",
+    "update": "run-s update:check update:install update:commit",
+    "update:check": "updates -u",
+    "update:install": "yarn install",
+    "update:commit": "git commit -m \"chore: update dependencies\" -- package.json yarn.lock"
+  },
+  "author": "Junpei Kawamoto <kawamoto.junpei@gmail.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "about-window": "^1.12.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.1",
+    "@babel/preset-env": "^7.3.1",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.5",
+    "del-cli": "^1.1.0",
+    "electron": "^4.0.2",
+    "electron-builder": "^20.38.5",
+    "eslint": "^5.12.1",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-import": "^2.15.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.16.1",
+    "svg-url-loader": "^2.3.2",
+    "updates": "^6.2.1",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
+  }
+}
