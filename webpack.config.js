@@ -18,48 +18,53 @@
 "use strict";
 const path = require("path");
 
-const configs = [{
-  mode: "development",
-  target: "electron-main",
-  node: {
-    __dirname: false,
-    __filename: false
+const configs = [
+  {
+    mode: "development",
+    target: "electron-main",
+    node: {
+      __dirname: false,
+      __filename: false,
+    },
+    entry: {
+      index: "./src/index.js",
+    },
+    resolve: {
+      extensions: [".js", ".svg"],
+    },
+    externals: {
+      "about-window": "commonjs about-window",
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: "babel-loader",
+        },
+        {
+          test: /\.svg$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "svg-url-loader",
+            options: {
+              noquotes: true,
+            },
+          },
+        },
+      ],
+    },
+    output: {
+      path: path.join(__dirname, "lib"),
+      filename: "[name].js",
+    },
+    devtool: "source-map",
   },
-  entry: {
-    "index": "./src/index.js",
-  },
-  resolve: {
-    extensions: [".js", ".svg"]
-  },
-  externals: {
-    "about-window": "commonjs about-window",
-  },
-  module: {
-    rules: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: "babel-loader",
-    }, {
-      test: /\.svg$/,
-      exclude: /node_modules/,
-      use: {
-        loader: "svg-url-loader",
-        options: {
-          noquotes: true
-        }
-      }
-    }],
-  },
-  output: {
-    path: path.join(__dirname, "lib"),
-    filename: "[name].js"
-  },
-  devtool: "source-map"
-}];
+];
 
 module.exports = (env, argv) => {
   if (argv.mode === "production") {
-    configs.forEach(c => c.devtool = false);
+    configs.forEach(c => (c.devtool = false));
   }
   return configs;
 };

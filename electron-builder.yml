@@ -31,6 +31,7 @@ linux:
   target: "AppImage"
   icon: "src/assets/goobox.icns"
   category: "System"
+  artifactName: "${productName}-${version}.${ext}"
 nsis:
   perMachine: true
   installerIcon: "src/assets/installer.ico"
