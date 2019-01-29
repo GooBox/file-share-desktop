@@ -24,6 +24,7 @@ brew tap jkawamoto/pixeldrain
 brew install pixeldrain
 pd -v
 
+yarn build:production
 yarn dist
 
 WIN_ID=$(basename $(pd upload dist/GooboxFileShare-0.1.0-setup_x64.exe))
