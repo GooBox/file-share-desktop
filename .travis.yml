@@ -1,0 +1,37 @@
+osx_image: xcode10.1
+dist: trusty
+sudo: false
+language: node_js
+node_js:
+- node
+os:
+- osx
+env:
+  global:
+  - ELECTRON_CACHE=$HOME/Library/Caches/electron
+  - ELECTRON_BUILDER_CACHE=$HOME/Library/Caches/electron-builder
+  - secure: UTlD9tLtvizQaXnvN+sLjccafujTtc8S325/gexlH4LOJOxwRsWUPhJbKnBhd0dlZ/FdtQsvqEKBEJBJyTgS7d9ggTPe8Qmu8hu3DT3vchq64MK9a2A6zgVocohBAjrTZ6KK1PA+SJSkEZciZVUf6R5L/q41p5NfmXgyFbqZ45P4hSxeHLzKm+LscWNHrpR5413uJhCOw73BJH1218U/KWkEu1SIc9PGAOaU4Qsx/QvWhQeGRmvBwA3xS29ArFCWOtC3epYlwgvsCnGfZhxy+4waNf4gEy6IyUvA6Q71GiOsKoCBGTj6AwLCFSjZzCjrBBUKgt5RXJJ7NnyGHiTRs5M7N5FiNnHd5j+ettsqtHzbGR+ctbtspsYjoZwH9CH3boG8Vr2C8jciqZdPqyt7G5Z4lZLGe7fo5HIHVNT51mCqHdP6zTxEV99SVBnV6xz+HqPxsQxemoGJOEvbJRGIYkrRbsP0zc5ZnYj8QEYfbEkSSWAu5Etfir65J2awq8JmzRkET4rAg5EUj2C0V9QK1v3u58ZcB7e+MfhziclNUK5g4m0tN2QxSlNFOesFLu2kSuJcdf+7E0wdPmlWHEcdgQuwHlBpJai8ipgltoN78SaLXyDh4I7vT6DSbGdAkHDfOF6N7tw0QIV3Z6wAFZjyQ/TT6rNw2pLvVi7iw+4sBH4=
+script:
+- yarn check
+- yarn build
+- '[ "$TRAVIS_PULL_REQUEST" = "false" ] || ./bin/pr'
+after_success:
+- yarn run coveralls
+before_deploy:
+- yarn run build:production
+- yarn run dist
+deploy:
+  provider: releases
+  skip_cleanup: true
+  file:
+  - dist/GooboxFileShare-0.1.0-setup_x64.exe
+  - dist/GooboxFileShare-0.1.0.dmg
+  - dist/GooboxFileShare-0.1.0.AppImage
+  on:
+    tags: true
+    repo: GooBox/file-share-desktop
+  api_key:
+    secure: lrmDEAADF1gbRGgAm34nduCYdlWiofiLf+acSS6tFXhfTDOnJsV0kQo2MGJs7hPpgcWg60FrfOenEE5rA8/77FXTyIY8ta4Ql1HFWmHpZ6gEU5aW6Y8dwLAIXFGxUyvvW2VIHKHtKbkWm8AxKUSM0Jvd2qaPBUkvuzQ8gMFSZ97Zv+6hH0WLJj3QOmqnwk14+eD/dvMg21WoZcACvEdJWzQoMUqEJZ2bjWR0rYOp7xoaRmw6WYh48bxFtyDqIk4QT0lgBDdIfVyH8WyueLGACSkHu/qbkvilKyqJ53LSYSmcafqow6goMbpc7JAYQXHLP3scq8lHUhWosgRsoUvJGnAC5arb9S6o0WGA4Q3S5oGcmHFagtwj7iQF3qSJQXBIcH2wW3eSNTl8Hr6enBebyC5DpNHcd/QwWGY0gRteH0H89rsStx4aE151+cwVh5/SZK19MoEEBD3yl+wmlnmB/zljVpO1NZqMAGHpbvwwy6KmH7oug8rvkjSnckgSBr/i545l2cf0Wu+iz4eTuZzwIy83h/PD+n/UzZIcQaalJHWTf2ZC0zBFJGo3SuJV6nDqegPGu1XFRpu9QPQu4IzgRm2VB3eTSJvbxph0B9z7DivrzaOZ+V4NItVKollotYni2+rTURfUsl5yZARii8HqGeJDgeFNjh9JevZTEehzGvw=
+notifications:
+  webhooks:
+    secure: nJ21O18sALgdcNf9UigPRZitgzFeh0XY50cXmBdjAey6ASRXjwEyyoF/3eu6j+TWzREFKvPkU62wC6B+0fF6pbl+eFIqBTow+OGtmu+oQUnn7tHPSo8oeCkGgmLZHv/YyS5xXriYEpJ4Q+tx8G8rtNh+85wSl3Erf75cXgsygAQGm2bbU4IMk0hTtgPCKfIuRQ3+zFZlio2wBE3iWoJ1nd1DVkBDpWpIq+YTsOHvW1xyRnWsmg45LkSdA26HsDGRZbREfKZMcA1XToAUj+u1r/IFP0v2GH0FM0q/G21mERVUQ3QkQfZRwrV3gst5Hmq5MsOV6WSJoQNOOwP90rlfdP9nb4AUtmFKrvXpCqbA9vHkooDKdOis2Dbq9jcO4fDRwKJB9G1OGo7lZyk8sgS60WQRpXF7NseSr5oBFv7UqdzDvUBbDZ4ELQnCBudBLtRZEGeUb0bEEKV1h7/fSYBNT4PwcOskdnrLfUEh2G1vrNtEjEuFy845b+6G60TooDOUHr1iInoXrnuOTDCOmXIl6AKQ7gvrHveAxz0di5gSIgdxYWfHa32mhlkAPAaUV0tJXomMFsn17qCBJA9ajyXW33IPQvFRb55RiOsYm5MxJLwq9/TCouJNIBfzwY6bn7HJgzlBnVzZ6WClRy2K5ZjNl9uszIfHvJBHq1tYNxf0Iag=
