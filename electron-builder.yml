@@ -25,7 +25,7 @@ mac:
   type: "development"
 win:
   target: "nsis"
-  icon: "resources/goobox.ico"
+  icon: "src/assets/goobox.ico"
   publisherName: "Goobox"
 linux:
   target: "AppImage"
