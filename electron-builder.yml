@@ -18,7 +18,9 @@ appId: "io.goobox.FileShareApp"
 directories:
   buildResources: ""
 files:
+  - "**/*"
   - "!src"
+  - "src/assets/goobox.ico"
 mac:
   category: "public.app-category.productivity"
   icon: "src/assets/goobox.icns"
