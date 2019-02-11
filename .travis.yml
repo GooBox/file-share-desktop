@@ -23,9 +23,9 @@ deploy:
   provider: releases
   skip_cleanup: true
   file:
-    - dist/GooboxFileShare-0.1.1-setup_x64.exe
-    - dist/GooboxFileShare-0.1.1.dmg
-    - dist/GooboxFileShare-0.1.1.AppImage
+    - dist/GooboxFileShare-0.1.2-setup_x64.exe
+    - dist/GooboxFileShare-0.1.2.dmg
+    - dist/GooboxFileShare-0.1.2.AppImage
   on:
     tags: true
     repo: GooBox/file-share-desktop

@@ -22,7 +22,7 @@ export const openAboutWindow = async () =>
   new Promise(resolve => {
     const about = _openAboutWindow({
       icon_path: icon,
-      bug_report_url: "https://github.com/GooBox/file-share-app/issues",
+      bug_report_url: "https://github.com/GooBox/file-share-desktop/issues",
       copyright: "© Goobox",
       homepage: "https://goobox.io/",
       license: "GPL-v3",
