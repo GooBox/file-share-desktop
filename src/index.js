@@ -40,7 +40,7 @@ app.on("ready", () => {
     mainWindow.toggleDevTools();
   }
 
-  createMenu(mainWindow);
+  createMenu(() => mainWindow.close());
 
   app.on("window-all-closed", () => app.quit());
 });

@@ -19,7 +19,7 @@ import {Menu} from "electron";
 import openAboutWindow from "./about";
 import {AppName} from "./constants";
 
-export const createMenu = mainWindow => {
+export const createMenu = onQuit => {
   // Create the Application's main menu for macOS
   const template = [
     {
@@ -30,9 +30,7 @@ export const createMenu = mainWindow => {
         {
           label: `Quit ${AppName}`,
           accelerator: "Command+Q",
-          click: () => {
-            mainWindow.close();
-          },
+          click: onQuit,
         },
       ],
     },
