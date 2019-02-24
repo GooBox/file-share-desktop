@@ -28,7 +28,7 @@ export const createMenu = mainWindow => {
         {label: "About Goobox", click: openAboutWindow},
         {type: "separator"},
         {
-          label: "Quit",
+          label: `Quit ${AppName}`,
           accelerator: "Command+Q",
           click: () => {
             mainWindow.close();
