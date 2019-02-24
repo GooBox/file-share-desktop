@@ -16,6 +16,7 @@
  */
 
 import {app, BrowserWindow} from "electron";
+import * as opn from "opn";
 import {AppName, AppURL, DefaultHeight, DefaultWidth} from "./constants";
 import {createMenu} from "./menu";
 
@@ -40,7 +41,7 @@ app.on("ready", () => {
     mainWindow.toggleDevTools();
   }
 
-  createMenu(() => mainWindow.close());
+  createMenu(() => mainWindow.close(), () => opn(app.getPath("downloads")));
 
   app.on("window-all-closed", () => app.quit());
 });
