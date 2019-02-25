@@ -18,7 +18,7 @@ set -ev
 yarn build:production
 yarn dist
 
-if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
+if [[ "${TRAVIS_PULL_REQUEST}" = "false" ]]; then
     exit 0
 fi
 
