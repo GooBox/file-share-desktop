@@ -19,8 +19,7 @@ import {Menu} from "electron";
 import openAboutWindow from "./about";
 import {AppName} from "./constants";
 
-export const createMenu = mainWindow => {
-  // Create the Application's main menu for macOS
+export const createMenu = (onQuit, onOpenDownload) => {
   const template = [
     {
       label: AppName,
@@ -28,11 +27,15 @@ export const createMenu = mainWindow => {
         {label: "About Goobox", click: openAboutWindow},
         {type: "separator"},
         {
-          label: "Quit",
+          label: "Download",
+          click: onOpenDownload,
+        },
+
+        {type: "separator"},
+        {
+          label: `Quit ${AppName}`,
           accelerator: "Command+Q",
-          click: () => {
-            mainWindow.close();
-          },
+          click: onQuit,
         },
       ],
     },
