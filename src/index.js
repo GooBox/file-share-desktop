@@ -16,10 +16,18 @@
  */
 
 import {app, BrowserWindow} from "electron";
-import {AppName, AppURL, DefaultHeight, DefaultWidth} from "./constants";
+import * as opn from "opn";
+import {
+  AppName,
+  AppURL,
+  BaseURL,
+  DefaultHeight,
+  DefaultWidth,
+} from "./constants";
 import {createMenu} from "./menu";
+import {checkForUpdatesAndNotify} from "./updater";
 
-app.on("ready", () => {
+app.on("ready", async () => {
   let width = DefaultWidth;
   if (process.env.DEV_TOOLS) {
     width *= 2;
@@ -40,7 +48,15 @@ app.on("ready", () => {
     mainWindow.toggleDevTools();
   }
 
-  createMenu(mainWindow);
+  mainWindow.webContents.on("will-navigate", (e, url) => {
+    if (url === BaseURL) {
+      e.preventDefault();
+      mainWindow.loadURL(AppURL);
+    }
+  });
 
+  createMenu(() => mainWindow.close(), () => opn(app.getPath("downloads")));
   app.on("window-all-closed", () => app.quit());
+
+  await checkForUpdatesAndNotify();
 });

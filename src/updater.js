@@ -15,8 +15,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-export const AppName = "Goobox File Share";
-export const BaseURL = "https://goobox.io/";
-export const AppURL = `${BaseURL}?standalone=true`;
-export const DefaultWidth = 800;
-export const DefaultHeight = 600;
+import * as log from "electron-log";
+import {autoUpdater} from "electron-updater";
+
+export const checkForUpdatesAndNotify = async () => {
+  log.transports.file.level = "info";
+  autoUpdater.logger = log;
+  return autoUpdater.checkForUpdatesAndNotify();
+};
+
+export default checkForUpdatesAndNotify;
