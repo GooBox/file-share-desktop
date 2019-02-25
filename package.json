@@ -36,6 +36,8 @@
     "del-cli": "^1.1.0",
     "electron": "^4.0.4",
     "electron-builder": "^20.38.5",
+    "electron-log": "^3.0.1",
+    "electron-updater": "^4.0.6",
     "eslint": "^5.13.0",
     "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-import": "^2.16.0",

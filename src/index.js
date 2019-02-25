@@ -25,8 +25,9 @@ import {
   DefaultWidth,
 } from "./constants";
 import {createMenu} from "./menu";
+import {checkForUpdatesAndNotify} from "./updater";
 
-app.on("ready", () => {
+app.on("ready", async () => {
   let width = DefaultWidth;
   if (process.env.DEV_TOOLS) {
     width *= 2;
@@ -55,6 +56,7 @@ app.on("ready", () => {
   });
 
   createMenu(() => mainWindow.close(), () => opn(app.getPath("downloads")));
-
   app.on("window-all-closed", () => app.quit());
+
+  await checkForUpdatesAndNotify();
 });
