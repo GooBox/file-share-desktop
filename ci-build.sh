@@ -15,8 +15,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 set -ev
 
+yarn build:production
+yarn dist
+
 if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
-    yarn build
     exit 0
 fi
 
@@ -24,8 +26,6 @@ brew tap jkawamoto/pixeldrain
 brew install pixeldrain
 pd -v
 
-yarn build:production
-yarn dist
 
 WIN_ID=$(basename $(pd upload dist/GooboxFileShare-0.1.2-setup_x64.exe))
 echo "Dev build for Windows has been uploaded at ${WIN_ID}"
