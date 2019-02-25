@@ -16,6 +16,7 @@
  */
 
 export const AppName = "Goobox File Share";
-export const AppURL = "https://goobox.io/?standalone=true";
+export const BaseURL = "https://goobox.io/";
+export const AppURL = `${BaseURL}?standalone=true`;
 export const DefaultWidth = 800;
 export const DefaultHeight = 600;

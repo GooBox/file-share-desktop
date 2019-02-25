@@ -17,7 +17,13 @@
 
 import {app, BrowserWindow} from "electron";
 import * as opn from "opn";
-import {AppName, AppURL, DefaultHeight, DefaultWidth} from "./constants";
+import {
+  AppName,
+  AppURL,
+  BaseURL,
+  DefaultHeight,
+  DefaultWidth,
+} from "./constants";
 import {createMenu} from "./menu";
 
 app.on("ready", () => {
@@ -40,6 +46,13 @@ app.on("ready", () => {
   if (process.env.DEV_TOOLS) {
     mainWindow.toggleDevTools();
   }
+
+  mainWindow.webContents.on("will-navigate", (e, url) => {
+    if (url === BaseURL) {
+      e.preventDefault();
+      mainWindow.loadURL(AppURL);
+    }
+  });
 
   createMenu(() => mainWindow.close(), () => opn(app.getPath("downloads")));
 
