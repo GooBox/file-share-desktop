@@ -41,6 +41,9 @@ app.on("ready", async () => {
     resizable: true,
     fullscreenable: true,
     title: AppName,
+    webPreferences: {
+      nodeIntegration: false,
+    },
   });
   mainWindow.loadURL(AppURL);
 
