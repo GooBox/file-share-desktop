@@ -15,7 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {app, BrowserWindow} from "electron";
+import {app, BrowserWindow, shell} from "electron";
 import * as log from "electron-log";
 import * as opn from "opn";
 import {
@@ -33,6 +33,12 @@ const logLevel = {
   "0": "info",
   "1": "warn",
   "2": "error",
+};
+
+const showLog = () => {
+  if (!shell.openItem(log.transports.file.file)) {
+    log.warn("failed to open the log file");
+  }
 };
 
 app.on("ready", async () => {
@@ -73,7 +79,11 @@ app.on("ready", async () => {
     log[logLevel[level.toString()]](msg);
   });
 
-  createMenu(() => mainWindow.close(), () => opn(app.getPath("downloads")));
+  createMenu(
+    () => mainWindow.close(),
+    () => opn(app.getPath("downloads")),
+    showLog
+  );
   app.on("window-all-closed", () => app.quit());
 
   await checkForUpdatesAndNotify();

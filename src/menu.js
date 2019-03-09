@@ -19,12 +19,13 @@ import {Menu} from "electron";
 import openAboutWindow from "./about";
 import {AppName} from "./constants";
 
-export const createMenu = (onQuit, onOpenDownload) => {
+export const createMenu = (onQuit, onOpenDownload, onShowLog) => {
   const template = [
     {
       label: AppName,
       submenu: [
         {label: "About Goobox", click: openAboutWindow},
+        {label: "Show Log", click: onShowLog},
         {type: "separator"},
         {
           label: "Download",
