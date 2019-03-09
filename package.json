@@ -22,8 +22,19 @@
     "update:install": "yarn install",
     "update:commit": "git commit -m \"chore: update dependencies\" -- package.json yarn.lock"
   },
-  "author": "Junpei Kawamoto <kawamoto.junpei@gmail.com>",
+  "author": "Goobox <support@goobox.io> (https://goobox.io/)",
+  "contributors": [
+    "Junpei Kawamoto <kawamoto.junpei@gmail.com> (https://www.jkawamoto.info/)"
+  ],
   "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GooBox/file-share-desktop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GooBox/file-share-desktop/issues"
+  },
+  "homepage": "https://github.com/GooBox/file-share-desktop",
   "dependencies": {
     "about-window": "^1.12.1"
   },
