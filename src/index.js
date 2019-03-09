@@ -17,7 +17,6 @@
 
 import {app, BrowserWindow, shell} from "electron";
 import * as log from "electron-log";
-import * as opn from "opn";
 import {
   AppName,
   AppURL,
@@ -38,6 +37,12 @@ const logLevel = {
 const showLog = () => {
   if (!shell.openItem(log.transports.file.file)) {
     log.warn("failed to open the log file");
+  }
+};
+
+const openDownload = () => {
+  if (!shell.openItem(app.getPath("downloads"))) {
+    log.warn("failed to open downloads folder");
   }
 };
 
@@ -79,11 +84,7 @@ app.on("ready", async () => {
     log[logLevel[level.toString()]](msg);
   });
 
-  createMenu(
-    () => mainWindow.close(),
-    () => opn(app.getPath("downloads")),
-    showLog
-  );
+  createMenu(() => mainWindow.close(), openDownload, showLog);
   app.on("window-all-closed", () => app.quit());
 
   await checkForUpdatesAndNotify();

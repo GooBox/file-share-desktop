@@ -27,11 +27,7 @@ export const createMenu = (onQuit, onOpenDownload, onShowLog) => {
         {label: "About Goobox", click: openAboutWindow},
         {label: "Show Log", click: onShowLog},
         {type: "separator"},
-        {
-          label: "Download",
-          click: onOpenDownload,
-        },
-
+        {label: "Open Downloads folder", click: onOpenDownload},
         {type: "separator"},
         {
           label: `Quit ${AppName}`,
