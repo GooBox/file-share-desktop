@@ -22,6 +22,7 @@ files:
   - "!src"
   - "src/assets/goobox.ico"
 mac:
+  target: "dmg"
   category: "public.app-category.productivity"
   icon: "src/assets/goobox.icns"
   type: "development"
@@ -36,8 +37,8 @@ linux:
   artifactName: "${productName}-${version}.${ext}"
 nsis:
   perMachine: true
-  installerIcon: "src/assets/installer.ico"
-  uninstallerIcon: "src/assets/installer.ico"
+  installerIcon: "src/assets/goobox.ico"
+  uninstallerIcon: "src/assets/goobox.ico"
   license: "LICENSE"
   deleteAppDataOnUninstall: true
   artifactName: "${productName}-${version}-setup_x64.${ext}"
