@@ -16,6 +16,7 @@
  */
 
 import {app, BrowserWindow} from "electron";
+import * as log from "electron-log";
 import * as opn from "opn";
 import {
   AppName,
@@ -51,11 +52,18 @@ app.on("ready", async () => {
     mainWindow.toggleDevTools();
   }
 
-  mainWindow.webContents.on("will-navigate", (e, url) => {
+  const wc = mainWindow.webContents;
+  wc.on("will-navigate", (e, url) => {
     if (url === BaseURL) {
       e.preventDefault();
       mainWindow.loadURL(AppURL);
     }
+  });
+  wc.on("console-message", (e, level, msg) => {
+    e.preventDefault();
+    msg = msg.replace(/%c/g, "");
+    msg = msg.replace(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\s*/, "");
+    log.info(msg);
   });
 
   createMenu(() => mainWindow.close(), () => opn(app.getPath("downloads")));
