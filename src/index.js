@@ -28,6 +28,13 @@ import {
 import {createMenu} from "./menu";
 import {checkForUpdatesAndNotify} from "./updater";
 
+const logLevel = {
+  "-1": "debug",
+  "0": "info",
+  "1": "warn",
+  "2": "error",
+};
+
 app.on("ready", async () => {
   let width = DefaultWidth;
   if (process.env.DEV_TOOLS) {
@@ -63,7 +70,7 @@ app.on("ready", async () => {
     e.preventDefault();
     msg = msg.replace(/%c/g, "");
     msg = msg.replace(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\s*/, "");
-    log.info(msg);
+    log[logLevel[level.toString()]](msg);
   });
 
   createMenu(() => mainWindow.close(), () => opn(app.getPath("downloads")));
