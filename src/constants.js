@@ -20,3 +20,5 @@ export const BaseURL = "https://goobox.io/";
 export const AppURL = `${BaseURL}?standalone=true`;
 export const DefaultWidth = 800;
 export const DefaultHeight = 600;
+
+export const DebugModeKey = "goobox.debug";

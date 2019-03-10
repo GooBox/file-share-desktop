@@ -19,15 +19,43 @@ import {Menu} from "electron";
 import openAboutWindow from "./about";
 import {AppName} from "./constants";
 
-export const createMenu = (onQuit, onOpenDownload, onShowLog) => {
+const editMenu = {
+  label: "Edit",
+  submenu: [
+    {label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:"},
+    {label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:"},
+    {type: "separator"},
+    {label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:"},
+    {label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:"},
+    {label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:"},
+    {
+      label: "Select All",
+      accelerator: "CmdOrCtrl+A",
+      selector: "selectAll:",
+    },
+  ],
+};
+
+const debugMenuLabel = debug => {
+  if (debug) {
+    return "Disable Debug Mode";
+  }
+  return "Enable Debug Mode";
+};
+
+export const updateMenu = (
+  debug,
+  {onQuit, onOpenDownload, onShowLog, onToggleDebugMode}
+) => {
   const template = [
     {
       label: AppName,
       submenu: [
         {label: "About Goobox", click: openAboutWindow},
         {label: "Show Log", click: onShowLog},
+        {label: debugMenuLabel(debug), click: () => onToggleDebugMode(!debug)},
         {type: "separator"},
-        {label: "Open Downloads folder", click: onOpenDownload},
+        {label: "Open Downloads Folder", click: onOpenDownload},
         {type: "separator"},
         {
           label: `Quit ${AppName}`,
@@ -36,24 +64,9 @@ export const createMenu = (onQuit, onOpenDownload, onShowLog) => {
         },
       ],
     },
-    {
-      label: "Edit",
-      submenu: [
-        {label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:"},
-        {label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:"},
-        {type: "separator"},
-        {label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:"},
-        {label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:"},
-        {label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:"},
-        {
-          label: "Select All",
-          accelerator: "CmdOrCtrl+A",
-          selector: "selectAll:",
-        },
-      ],
-    },
+    editMenu,
   ];
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 };
 
-export default createMenu;
+export default updateMenu;

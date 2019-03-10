@@ -21,10 +21,12 @@ import {
   AppName,
   AppURL,
   BaseURL,
+  DebugModeKey,
   DefaultHeight,
   DefaultWidth,
 } from "./constants";
-import {createMenu} from "./menu";
+import {updateMenu} from "./menu";
+import {getItem, setItem} from "./storage";
 import {checkForUpdatesAndNotify} from "./updater";
 
 const logLevel = {
@@ -34,13 +36,15 @@ const logLevel = {
   "2": "error",
 };
 
-const showLog = () => {
+const strToBool = str => str && str.toLowerCase() === "true";
+
+const onShowLog = () => {
   if (!shell.openItem(log.transports.file.file)) {
     log.warn("failed to open the log file");
   }
 };
 
-const openDownload = () => {
+const onOpenDownload = () => {
   if (!shell.openItem(app.getPath("downloads"))) {
     log.warn("failed to open downloads folder");
   }
@@ -60,6 +64,7 @@ app.on("ready", async () => {
     resizable: true,
     fullscreenable: true,
     title: AppName,
+    backgroundColor: "#313131",
     webPreferences: {
       nodeIntegration: false,
     },
@@ -84,7 +89,23 @@ app.on("ready", async () => {
     log[logLevel[level.toString()]](msg);
   });
 
-  createMenu(() => mainWindow.close(), openDownload, showLog);
+  const onToggleDebugMode = async debug => {
+    await setItem(wc, DebugModeKey, debug);
+    updateMenu(debug, {
+      onQuit: () => mainWindow.close(),
+      onOpenDownload,
+      onShowLog,
+      onToggleDebugMode,
+    });
+    wc.reload();
+  };
+
+  updateMenu(strToBool(await getItem(wc, DebugModeKey)), {
+    onQuit: () => mainWindow.close(),
+    onOpenDownload,
+    onShowLog,
+    onToggleDebugMode,
+  });
   app.on("window-all-closed", () => app.quit());
 
   await checkForUpdatesAndNotify();
