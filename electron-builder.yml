@@ -22,7 +22,6 @@ files:
   - "!src"
   - "src/assets/goobox.ico"
 mac:
-  target: "dmg"
   category: "public.app-category.productivity"
   icon: "src/assets/goobox.icns"
   type: "development"
