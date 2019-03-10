@@ -50,6 +50,10 @@ const onOpenDownload = () => {
   }
 };
 
+if (!app.requestSingleInstanceLock()) {
+  app.quit();
+}
+
 app.on("ready", async () => {
   let width = DefaultWidth;
   if (process.env.DEV_TOOLS) {
@@ -69,8 +73,15 @@ app.on("ready", async () => {
       nodeIntegration: false,
     },
   });
-  mainWindow.loadURL(AppURL);
+  app.on("second-instance", () => {
+    if (mainWindow.isMinimized()) {
+      mainWindow.restore();
+    }
+    mainWindow.focus();
+  });
+  app.on("window-all-closed", () => app.quit());
 
+  mainWindow.loadURL(AppURL);
   if (process.env.DEV_TOOLS) {
     mainWindow.toggleDevTools();
   }
@@ -106,7 +117,6 @@ app.on("ready", async () => {
     onShowLog,
     onToggleDebugMode,
   });
-  app.on("window-all-closed", () => app.quit());
 
   await checkForUpdatesAndNotify();
 });
