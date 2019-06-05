@@ -5,10 +5,9 @@
       "@babel/preset-env",
       {
         "targets": {
-          "electron": "4.0.1"
+          "electron": "5.0.2"
         },
-        "modules": false,
-        "useBuiltIns": "usage"
+        "modules": false
       }
     ]
   ]
